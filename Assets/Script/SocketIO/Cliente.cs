@@ -13,43 +13,11 @@ public class Cliente : MonoBehaviour
         socket = new SocketIOClient.Client("https://acid-trip.herokuapp.com");
         socket.On("connect", (fn) =>
         {
-            socket.On("salas", (fn)=>
-            {
-                listaSalas(fn);
-            }),
-            socket.On("resultado_crear_sala", (a)=>
-            {
-                resultadoCrearSala(a)
-            }
-            ),
-            socket.On("resultado_unirse_sala", (a)=>
-            {
-                resultadoUnirse(a)
-            }),
-            socket.On("iniciar_carrera",(a)=>
-            {
-                inicioCarrera(a)
-            }),
-            socket.On("resultado_iniciar_carrera", (a)=>
-            {
-                resultadoIniciarCarrera(a)
-            }),
-            socket.On("posiciones", (a,o)=>
-            {
-                actualizarPoscion(a, o)
-            }),
-            socket.On("carrera_terminada", (a)=>
-            {
-                carreraTeminada(a)
-            }),
-            socket.On("jugador_desconectado", (a)=>
-            {
-                jugadorDesconectado(a)
-            }),
-            socket.On("sala_cerrada", (fn)
-            {
-                salaCerrada()
-            })
+            Debug.Log("connect - socket");
+
+            Dictionary<string, string> args = new Dictionary<string, string>();
+            args.Add("msg", "what's up?");
+            socket.Emit("SEND", args);
         });
         socket.On("RECV", (data) =>
         {
