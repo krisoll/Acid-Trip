@@ -17,7 +17,7 @@ public class TestCliente : MonoBehaviour {
 
 			//sala.nombre 	= "s1";
 			//Para unirse el objeto sala tiene como parametro obligatorio el atributo nombre
-			cli.unirse(sala);
+			//cli.unirse(sala);
 		};
 
 		cli.onError += (error) => {
