@@ -1,122 +1,86 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SocketIOClient;
 
-public class Cliente : MonoBehaviour
-{
+public class Cliente {
+	
+	public delegate void mConectado();
+	public delegate void mError(string error);
+	public delegate void mSalas(List<Sala> salas);
+	public delegate void mCrearSala(bool estado, string error);
+	public delegate void mUnirse(bool estado, string error);
+	public delegate void mIniciarCarrera(Sala sala);
+	public delegate void mResultadoIniciarCarrera(bool estado, string error);
+	public delegate void mPosiciones(string idJugador, int posicion);
+	public delegate void mCarreraTerminada(string idJugadorGanador);
+	public delegate void mJugadorDesconectado(string idJugador);
+	public delegate void mSalaCerrada(Sala sala);
 
-    SocketIOClient.Client socket;
+	private Client socket;
+	
+	public mConectado 				onConectado;
+	public mError 					onError;
+	public mSalas 					onSalas;
+	public mCrearSala				onCrearSala;
+	public mUnirse					onUnirse;
+	public mIniciarCarrera			onIniciarCarrera;
+	public mResultadoIniciarCarrera	onResultadoIniciarCarrera;
+	public mPosiciones				onPosiciones;
+	public mCarreraTerminada		onCarreraTerminada;
+	public mJugadorDesconectado		onJugadorDesconectado;
+	public mSalaCerrada				onSalaCerrada;
+	
+	public Cliente(){
+		socket = new SocketIOClient.Client("http://acid-trip.herokuapp.com");
+		socket.On ("connect", (fn) => {if(onConectado!=null)onConectado();});
+		socket.Error += (sender, e) => {if(onError!=null)onError(e.Message.ToString());};
+		socket.On ("salas", (data) => {try{JSONObject datos = getArgumentos(data.MessageText)[0];List<Sala> salas = new List<Sala>();foreach(JSONObject jo in datos.list)salas.Add(new Sala(jo));if(onSalas!=null)onSalas(salas);}catch(System.Exception ex){if(onError!=null)onError(ex.Message);}});
+		socket.On ("resultado_crear_sala", (data)=>{bool estado = true;string error = null;try{JSONObject jo = getArgumentos(data.MessageText)[0];int est = int.Parse(jo.GetField("estado").ToString());if(est!=0)throw new System.Exception(jo.GetField("resultado").ToString());}catch(System.Exception ex){estado = false;error = ex.Message;}if(onCrearSala!=null)onCrearSala(estado, error);});
+		socket.On ("resultado_unirse_sala", (data)=>{bool estado = true;string error = null;try{JSONObject jo = getArgumentos(data.MessageText)[0];int est = int.Parse(jo.GetField("estado").ToString());if(est!=0)throw new System.Exception(jo.GetField("resultado").ToString());}catch(System.Exception ex){estado = false;error = ex.Message;}if(onUnirse!=null)onUnirse(estado, error);});
+		socket.On ("iniciar_carrera", (data)=>{JSONObject jo = getArgumentos(data.MessageText)[0];Sala sala = new Sala(jo);if(onIniciarCarrera!=null)onIniciarCarrera(sala);});
+		socket.On ("resultado_iniciar_carrera", (data)=>{bool estado = true;string error = null;try{JSONObject jo = getArgumentos(data.MessageText)[0];int est = int.Parse(jo.GetField("estado").ToString());if(est!=0)throw new System.Exception(jo.GetField("resultado").ToString());}catch(System.Exception ex){estado = false;error = ex.Message;}if(onResultadoIniciarCarrera!=null)onResultadoIniciarCarrera(estado, error);});
+		socket.On ("posiciones", (data)=>{JSONObject jo = getArgumentos(data.MessageText);string idJugador = jo[0].ToString();int posicion = int.Parse(jo[1].ToString());if(onPosiciones!=null)onPosiciones(idJugador, posicion);});
+		socket.On ("carrera_terminada", (data)=>{JSONObject jo = getArgumentos(data.MessageText);string idJugadorGanador = jo[0].ToString();if(onCarreraTerminada!=null)onCarreraTerminada(idJugadorGanador);});
+		socket.On ("jugador_desconectado", (data)=>{JSONObject jo = getArgumentos(data.MessageText);string idJugador = jo[0].ToString();if(onJugadorDesconectado!=null)onJugadorDesconectado(idJugador);});
+		socket.On ("sala_cerrada", (data)=>{JSONObject jo = getArgumentos(data.MessageText)[0];Sala sala = new Sala(jo);if(onSalaCerrada!=null)onSalaCerrada(sala);});
+	}
 
-    void Start()
-    {
+	private JSONObject getArgumentos(string json){
+		JSONObject jo 	= new JSONObject(json);
+		jo = jo.GetField("args");
+		return jo;
+	}
+	
+	public void conectar(){
+		if (socket != null)
+			socket.Connect ();
+	}
 
-        socket = new SocketIOClient.Client("https://acid-trip.herokuapp.com");
-        socket.On("connect", (fn) =>
-        {
-            Debug.Log("connect - socket");
+	public void crearSala(Sala sala){
+		if(socket!=null && socket.IsConnected)
+			socket.Emit ("crear_sala", sala);
+	}
 
-            Dictionary<string, string> args = new Dictionary<string, string>();
-            args.Add("msg", "what's up?");
-            socket.Emit("SEND", args);
-        });
-        socket.On("RECV", (data) =>
-        {
-            Debug.Log(data.Json.ToJsonString());
-        });
-        socket.Error += (sender, e) =>
-        {
-            Debug.Log("socket Error: " + e.Message.ToString());
-        };
-        socket.Connect();
-    }
+	public void unirse(Sala sala){
+		if (socket != null && socket.IsConnected)
+			socket.Emit ("unirse_sala", sala);
+	}
+	
+	public void iniciarCarrera(){
+		if (socket != null && socket.IsConnected)
+			socket.Emit ("inicar_carrera", null);
+	}
+	
+	public void correr(){
+		if (socket != null && socket.IsConnected)
+			socket.Emit ("correr", null);
+	}
 
-    void Update()
-    {
+	public void cerrar(){
+		if (socket != null)
+			socket.Close ();
+	}
 
-    }
 
-    void OnGUI()
-    {
-
-        if (GUI.Button(new Rect(20, 70, 150, 30), "SEND"))
-        {
-            Debug.Log("Sending");
-
-            Dictionary<string, string> args = new Dictionary<string, string>();
-            args.Add("msg", "hello!");
-            socket.Emit("SEND", args);
-        }
-
-        if (GUI.Button(new Rect(20, 120, 150, 30), "Close Connection"))
-        {
-            Debug.Log("Closing");
-
-            socket.Close();
-        }
-    }
-    void listaSalas(ArrayList Sala){
-	//La variable sala es un Array<Sala>
-    }
-
-    void crear_sala(string nombre, string distancia, string clave){
-            Dictionary<string, string> args = new Dictionary<string, string>();
-            args.Add("nombre",nombre);
-            args.Add("distancia",distancia);
-            args.Add("clave",clave);
-	        socket.Emit("crear_sala", args);
-	//Es obvio no?
-    }
-
-    void resultadoCrearSala(string respuesta){
-	    //En caso de error respuesta.estado != 0
-	    //El detalle del error se encuentra en respuesta.resultado
-    }
-
-    void unirse(string nombre){
-	    socket.Emit("unirse_sala", nombre);
-	    //Es obvio no?
-    }
-
-    void resultadoUnirse(string respuesta){
-	    //En caso de error respuesta.estado != 0
-	    //El detalle del error se encuentra en respuesta.resultado
-    }
-
-    void iniciar_carrera(){
-	    socket.Emit("inicar_carrera","");
-	    //Este metodo es invocado cuando el dueño de la sala decide iniciar la carrera
-    }
-
-    void resultadoIniciarCarrera(string respuesta){
-	    //En caso de error respuesta.estado != 0
-	    //El detalle del error se encuentra en respuesta.resultado
-    }
-
-    void inicioCarrera(string sala){
-	    //Este metodo es disparado cuando el dueño de la sala inicia la carrera
-	    //El objeto recibido es de tipo Sala con sus respectivo valores
-    }
-
-    void correr(){
-	    socket.Emit("correr","");
-	    //Este metodo es invocado para informar al servidor que el jugador esta corriendo
-    }
-
-    void actualizarPoscion(string idJugador,string posicion){
-	    //Este metodo es invocado desde el servidor cada vez que un jugador actualiza su posicion
-    }
-
-    void carreraTeminada(string idJugador){
-	    //Este metodo es invocado desde el servidor cuando un jugador a alcanzado la meta e indica el id del ganador
-    }
-
-    void jugadorDesconectado(string idJugador){
-	    //Este metodo es invocado cuando un jugador deja la sala y la carrera
-    }
-
-    void salaCerrada(){
-	    //Este metodo es invocado cuando la sala se cierra por salida del jugador creador de la sala
-    }
 }
-
-
