@@ -14,7 +14,6 @@ public class TestCliente : MonoBehaviour {
 			sala.distancia 	= "3000";
 			sala.clave 		= null;
 			cli.crearSala(sala);
-
 			//sala.nombre 	= "s1";
 			//Para unirse el objeto sala tiene como parametro obligatorio el atributo nombre
 			//cli.unirse(sala);
