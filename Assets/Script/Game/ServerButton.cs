@@ -6,6 +6,7 @@ public class ServerButton : MonoBehaviour {
     public Cliente cli;
     public void UnirseSala()
     {
+        Manager.gManager.sala = sala;
         cli.unirse(sala);
     }
 }

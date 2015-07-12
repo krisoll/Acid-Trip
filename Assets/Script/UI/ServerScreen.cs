@@ -14,6 +14,11 @@ public class ServerScreen : MonoBehaviour {
         cli.onConectado += () =>
         {
             Debug.Log("Conectado :D");
+            Sala sala = new Sala();
+            sala.nombre = "Sala desde C";
+            sala.distancia = "3000";
+            sala.clave = null;
+            cli.crearSala(sala);
         };
 
         cli.onError += (error) =>
@@ -95,6 +100,14 @@ public class ServerScreen : MonoBehaviour {
             t.text = sala.nombre +" x "+ sala.distancia + " > " + sala.jugadores.Length + " > " + sala.estado;
         }
 		hayNuevasSalas = false;
+    }
+    public void IniciarConexion()
+    {
+        if (cli != null) cli.conectar();
+    }
+    public void CerrarConexion()
+    {
+        if (cli != null)cli.cerrar();
     }
     void OnDestroy()
     {
