@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ServerScreen : MonoBehaviour {
     public GameObject Panel;
     private Cliente cli;
-    private List<Sala> salars = new List<Sala>();
+    private List<Sala> salas = new List<Sala>();
     void Start()
     {
         cli = new Cliente();
@@ -29,7 +29,7 @@ public class ServerScreen : MonoBehaviour {
 
         cli.onSalas += (salas) =>
         {
-            this.salars = salas;
+            this.salas = salas;
             Debug.Log("Cantidad de salas = " + salas.Count);
         };
 
@@ -76,11 +76,15 @@ public class ServerScreen : MonoBehaviour {
         };
 
         cli.conectar();
-        GetSalas();
     }
+
+	void Update(){
+		GetSalas ();
+	}
+
     void GetSalas()
     {
-        foreach (Sala sala in salars)
+        foreach (Sala sala in salas)
         {
             GameObject g = new GameObject();
             g.name = "Sala";
