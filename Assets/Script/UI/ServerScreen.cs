@@ -6,6 +6,8 @@ public class ServerScreen : MonoBehaviour {
     public GameObject Panel;
     private Cliente cli;
     private List<Sala> salas = new List<Sala>();
+	private bool hayNuevasSalas = false;
+
     void Start()
     {
         cli = new Cliente();
@@ -30,6 +32,7 @@ public class ServerScreen : MonoBehaviour {
         cli.onSalas += (salas) =>
         {
             this.salas = salas;
+			hayNuevasSalas = true;
             Debug.Log("Cantidad de salas = " + salas.Count);
         };
 
@@ -84,6 +87,8 @@ public class ServerScreen : MonoBehaviour {
 
     void GetSalas()
     {
+		if (!hayNuevasSalas)
+			return;
         foreach (Sala sala in salas)
         {
             GameObject g = new GameObject();
@@ -93,6 +98,7 @@ public class ServerScreen : MonoBehaviour {
             t.text = sala.nombre + " > " + sala.distancia + " > " + sala.jugadores.Length + " > " + sala.estado;
             Debug.Log(sala.nombre + " > " + sala.distancia + " > " + sala.jugadores.Length + " > " + sala.estado);
         }
+		hayNuevasSalas = false;
     }
     void OnDestroy()
     {
