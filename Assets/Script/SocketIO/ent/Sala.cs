@@ -13,13 +13,16 @@ public class Sala{
 
 	public Sala(JSONObject jo){
 		if(jo.GetField ("nombre")!=null)
-			nombre 		= jo.GetField ("nombre").ToString ();
-		if(jo.GetField ("clave")!=null)
-			clave 		= jo.GetField ("clave").ToString ();
+			nombre 		= jo.GetField ("nombre").ToString ().Replace("\"","");
+		if (jo.GetField ("clave") != null) {
+			clave = jo.GetField ("clave").ToString ().Replace ("\"", "");
+			if(clave.ToLower().Equals("null"))
+				clave = null;
+		}
 		if (jo.GetField ("distancia") != null)
-			distancia = jo.GetField ("distancia").ToString ();
+			distancia = jo.GetField ("distancia").ToString ().Replace("\"","");
 		if(jo.GetField ("estado")!=null)
-			estado 		= int.Parse(jo.GetField ("estado").ToString ());
+			estado 		= int.Parse(jo.GetField ("estado").ToString ().Replace("\"",""));
 		if (jo.GetField ("jugadores") != null) {
 			jo = jo.GetField ("jugadores");
 			List<JSONObject> lista = jo.list;

@@ -14,14 +14,6 @@ public class ServerScreen : MonoBehaviour {
         cli.onConectado += () =>
         {
             Debug.Log("Conectado :D");
-            Sala sala = new Sala();
-            sala.nombre = "Sala desde C";
-            sala.distancia = "3000";
-            sala.clave = null;
-            cli.crearSala(sala);
-            //sala.nombre 	= "s1";
-            //Para unirse el objeto sala tiene como parametro obligatorio el atributo nombre
-            //cli.unirse(sala);
         };
 
         cli.onError += (error) =>
