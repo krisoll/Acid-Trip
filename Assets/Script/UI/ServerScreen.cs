@@ -4,10 +4,10 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 public class ServerScreen : MonoBehaviour {
     public GameObject Panel;
+    public GameObject salaPrefab;
     private Cliente cli;
     private List<Sala> salas = new List<Sala>();
 	private bool hayNuevasSalas = false;
-
     void Start()
     {
         cli = new Cliente();
@@ -15,7 +15,7 @@ public class ServerScreen : MonoBehaviour {
         {
             Debug.Log("Conectado :D");
             Sala sala = new Sala();
-            sala.nombre = "Sala desde C#sd";
+            sala.nombre = "Sala desde C";
             sala.distancia = "3000";
             sala.clave = null;
             cli.crearSala(sala);
@@ -89,14 +89,18 @@ public class ServerScreen : MonoBehaviour {
     {
 		if (!hayNuevasSalas)
 			return;
+        float ySize = 0;
         foreach (Sala sala in salas)
         {
-            GameObject g = new GameObject();
-            g.name = "Sala";
+            GameObject g = (GameObject)Instantiate(salaPrefab, Panel.transform.position, Quaternion.identity);
+            g.GetComponent<ServerButton>().sala = sala;
+            g.GetComponent<ServerButton>().cli = cli;
             g.transform.parent = Panel.transform;
-            Text t = g.AddComponent<Text>();
-            t.text = sala.nombre + " > " + sala.distancia + " > " + sala.jugadores.Length + " > " + sala.estado;
-            Debug.Log(sala.nombre + " > " + sala.distancia + " > " + sala.jugadores.Length + " > " + sala.estado);
+            g.transform.localScale = salaPrefab.transform.localScale;
+            g.transform.localPosition = new Vector3(0, ySize, 0);
+            ySize -= -40f;
+            Text t = g.GetComponentInChildren<Text>();
+            t.text = sala.nombre +" x "+ sala.distancia + " > " + sala.jugadores.Length + " > " + sala.estado;
         }
 		hayNuevasSalas = false;
     }
