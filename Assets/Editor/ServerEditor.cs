@@ -14,14 +14,6 @@ public class ServerEditor : Editor {
         serv.Panel = (GameObject)EditorGUILayout.ObjectField("Panel", serv.Panel,typeof(GameObject));
         serv.salaPrefab = (GameObject)EditorGUILayout.ObjectField("Prefab Sala", serv.salaPrefab, typeof(GameObject));
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Iniciar Conexion"))
-        {
-            serv.IniciarConexion();
-        }
-        if (GUILayout.Button("Cerrar Conexion"))
-        {
-            serv.CerrarConexion();
-        }
         EditorGUILayout.EndHorizontal();
     }
 }
