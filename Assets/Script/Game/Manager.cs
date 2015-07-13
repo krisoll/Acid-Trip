@@ -9,6 +9,7 @@ public class Manager : MonoBehaviour {
     [HideInInspector]
     public City city;
     public Sala sala;
+    public Cliente cli;
     public static Manager gManager;
 	// Use this for initialization
     void Awake()
@@ -24,4 +25,8 @@ public class Manager : MonoBehaviour {
 	void Update () {
 	
 	}
+    public void LoadLevel(int level)
+    {
+        Application.LoadLevel(level);
+    }
 }

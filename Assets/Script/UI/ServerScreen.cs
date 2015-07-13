@@ -14,11 +14,6 @@ public class ServerScreen : MonoBehaviour {
         cli.onConectado += () =>
         {
             Debug.Log("Conectado :D");
-            Sala sala = new Sala();
-            sala.nombre = "Sala desde C";
-            sala.distancia = "3000";
-            sala.clave = null;
-            cli.crearSala(sala);
         };
 
         cli.onError += (error) =>
@@ -87,12 +82,17 @@ public class ServerScreen : MonoBehaviour {
 		if (!hayNuevasSalas)
 			return;
         float ySize = 0;
+        ServerButton[] gs = Panel.GetComponentsInChildren<ServerButton>();
+        for (int i = 0; i < gs.Length; i++)
+        {
+            Destroy(gs[i].gameObject);
+        }
         foreach (Sala sala in salas)
         {
             GameObject g = (GameObject)Instantiate(salaPrefab, Panel.transform.position, Quaternion.identity);
             g.GetComponent<ServerButton>().sala = sala;
             g.GetComponent<ServerButton>().cli = cli;
-            g.transform.parent = Panel.transform;
+            g.transform.SetParent(Panel.transform);
             g.transform.localScale = salaPrefab.transform.localScale;
             g.transform.localPosition = new Vector3(0, ySize, 0);
             ySize -= -40f;
