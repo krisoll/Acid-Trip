@@ -4,10 +4,12 @@ using UnityEngine.UI;
 public class SalaScreen : MonoBehaviour {
     public GameObject[] objetosJugador;
     public Text nombreSala;
+    public GameObject botonIniciar;
     private int numJugadores = 0;
 	// Use this for initialization
 	void Start () {
         nombreSala.text = Manager.gManager.sala.nombre;
+        if (Manager.gManager.admin) botonIniciar.SetActive(true);
 	}
 	
 	// Update is called once per frame

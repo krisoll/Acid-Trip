@@ -9,12 +9,13 @@ public class Manager : MonoBehaviour {
     [HideInInspector]
     public City city;
     public Sala sala;
-    public List<string> idJugadores;
-    public List<string> posiciones;
+    public string idJugador;
+    public string posicion;
     public Cliente cli;
     public List<Sala> salas = new List<Sala>();
     public bool hayNuevasSalas = false;
     public static Manager gManager;
+    public bool admin = false;
 	// Use this for initialization
     void Awake()
     {
@@ -52,10 +53,6 @@ public class Manager : MonoBehaviour {
 
         cli.onPosiciones += (idJugador, posicion) =>
         {
-            for (int i = 0; i < sala.jugadores.Length; i++)
-            {
-                idJugadores[i] = idJugador;
-            }
                 Debug.Log("JUGADOR " + idJugador + " >> " + posicion);
         };
 
