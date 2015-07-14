@@ -16,6 +16,7 @@ public class Manager : MonoBehaviour {
     public bool hayNuevasSalas = false;
     public static Manager gManager;
     public bool admin = false;
+    public bool carreraIniciada = false;
 	// Use this for initialization
     void Awake()
     {
@@ -48,7 +49,7 @@ public class Manager : MonoBehaviour {
         cli.onIniciarCarrera += (sala) =>
         {
             Debug.Log("Inicio la carrera en la sala : " + sala.nombre);
-            cli.correr();
+            carreraIniciada = true;
         };
 
         cli.onPosiciones += (idJugador, posicion) =>

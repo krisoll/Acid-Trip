@@ -19,6 +19,10 @@ public class SalaScreen : MonoBehaviour {
         {
             ObtenerJugadores();
         }
+        if (Manager.gManager.carreraIniciada)
+        {
+            Application.LoadLevel(3);
+        }
 	}
     void ObtenerJugadores()
     {
