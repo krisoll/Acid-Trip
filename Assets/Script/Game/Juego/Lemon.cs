@@ -8,6 +8,7 @@ public class Lemon : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
+        Manager.gManager.lemon = this;
 	}
 	
 	// Update is called once per frame

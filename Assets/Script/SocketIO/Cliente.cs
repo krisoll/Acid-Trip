@@ -54,7 +54,7 @@ public class Cliente {
 	
 	public void conectar(){
 		if (socket != null)
-			socket.Connect ();
+			socket.Connect();
 	}
 
 	public void crearSala(Sala sala){

@@ -10,6 +10,7 @@ public class City : MonoBehaviour {
     void Start()
     {
         img = GetComponent<RawImage>();
+        Manager.gManager.city = this;
     }
     // Update is called once per frame
     void Update()
