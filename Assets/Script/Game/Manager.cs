@@ -10,9 +10,12 @@ public class Manager : MonoBehaviour {
     public City city;
     public Sala sala;
     public string idJugador;
-    public string posicion;
+    public int posicion;
     public Cliente cli;
     public List<Sala> salas = new List<Sala>();
+    public List<RivalLemon> rivales = new List<RivalLemon>();
+    public string ganador;
+    public bool finalizo;
     public bool hayNuevasSalas = false;
     public static Manager gManager;
     public bool admin = false;
@@ -54,6 +57,8 @@ public class Manager : MonoBehaviour {
 
         cli.onPosiciones += (idJugador, posicion) =>
         {
+            this.idJugador = idJugador;
+            this.posicion = posicion;
                 Debug.Log("JUGADOR " + idJugador + " >> " + posicion);
         };
 
@@ -64,6 +69,8 @@ public class Manager : MonoBehaviour {
 
         cli.onCarreraTerminada += (idJugadorGanador) =>
         {
+            ganador = idJugadorGanador;
+            finalizo = true;
             Debug.Log("JUGADOR GANADOR " + idJugadorGanador);
         };
 

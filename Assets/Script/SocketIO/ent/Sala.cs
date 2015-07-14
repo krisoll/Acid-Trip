@@ -28,7 +28,7 @@ public class Sala{
 			List<JSONObject> lista = jo.list;
 			jugadores = new string[lista.Count];
 			for(int i=0;i<lista.Count;i++){
-				jugadores[i] = lista[i].ToString();
+				jugadores[i] = lista[i].ToString().Replace("\"","");
 			}
 		}
 	}

@@ -8,10 +8,9 @@ public class CreateServerButton : MonoBehaviour {
     public void UnirseSala()
     {
         sala = new Sala();
-        sala.nombre = name;
+        int random = Random.Range(0, 100);
+        sala.nombre = name+random;
         sala.distancia = distancia.ToString();
-        sala.clave = "";
-        sala.estado = 0;
         Manager.gManager.admin = true;
         Manager.gManager.sala = sala;
         Manager.gManager.cli.crearSala(sala);
