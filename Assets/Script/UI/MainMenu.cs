@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour {
 	}
     public void Jugar() 
     {
-        Application.LoadLevel("CityStage");
+        Application.LoadLevel(1);
     }
     public void Salir()
     {
