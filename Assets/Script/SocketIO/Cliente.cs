@@ -46,6 +46,10 @@ public class Cliente {
 		socket.On ("sala_cerrada", (data)=>{JSONObject jo = getArgumentos(data.MessageText)[0];Sala sala = new Sala(jo);if(onSalaCerrada!=null)onSalaCerrada(sala);});
 	}
 
+	private string getIdCliente(){
+		return socket.HandShake.SID;
+	}
+
 	private JSONObject getArgumentos(string json){
 		JSONObject jo 	= new JSONObject(json);
 		jo = jo.GetField("args");
