@@ -64,14 +64,14 @@ public class Manager : MonoBehaviour {
               //  Debug.Log("JUGADOR " + idJugador + " >> " + posicion);
         };
 
-        cli.onJugadorDesconectado += (idJugador) =>
+        cli.onJugadorDesconectado += (jugador) =>
         {
-            Debug.Log("JUGADOR DESCONECTADO " + idJugador);
+			Debug.Log("JUGADOR DESCONECTADO " + jugador.id);
         };
 
         cli.onCarreraTerminada += (ganador) =>
         {
-			ganador = ganador;
+			this.ganador = ganador;
             finalizo = true;
 			Debug.Log("JUGADOR GANADOR " + ganador.nombre +" ( "+ganador.id+")");
         };

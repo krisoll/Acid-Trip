@@ -6,7 +6,8 @@ public class RivalLemon : MonoBehaviour {
     public Animator anim;
     public TextMesh name;
     private Vector3 nextPosition;
-    private int posicion;
+	private Jugador jugador;
+
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
@@ -15,19 +16,20 @@ public class RivalLemon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (name.text == Manager.gManager.jugador.nombre)
+		if (jugador != null && jugador.id == Manager.gManager.jugador.id)
         {
-			posicion = Manager.gManager.jugador.posicion*100;
-            nextPosition = new Vector3(posicion, 0, 0);
+			jugador.posicion = Manager.gManager.jugador.posicion*100;
+			nextPosition = new Vector3(jugador.posicion, 0, 0);
         }
         transform.localPosition = Vector3.Lerp(transform.localPosition, nextPosition,0.005f);
 	}
-    public void setName(string n)
-    {
-        name.text = n;
-    }
-    public string getName()
-    {
-        return name.text;
-    }
+
+	public void setJugador(Jugador jugador){
+		this.jugador = jugador;
+		name.text = jugador.nombre;
+	}
+
+	public Jugador getJugador(){
+		return this.jugador;
+	}
 }

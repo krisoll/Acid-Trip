@@ -14,7 +14,7 @@ public class Cliente {
 	public delegate void mResultadoIniciarCarrera(bool estado, string error);
 	public delegate void mPosiciones(Jugador jugador);
 	public delegate void mCarreraTerminada(Jugador ganador);
-	public delegate void mJugadorDesconectado(string idJugador);
+	public delegate void mJugadorDesconectado(Jugador jugador);
 	public delegate void mSalaCerrada(Sala sala);
 
 	private Client socket;
@@ -44,7 +44,7 @@ public class Cliente {
 		socket.On ("resultado_iniciar_carrera", (data)=>{bool estado = true;string error = null;try{JSONObject jo = getArgumentos(data.MessageText)[0];int est = int.Parse(jo.GetField("estado").ToString());if(est!=0)throw new System.Exception(jo.GetField("resultado").ToString());}catch(System.Exception ex){estado = false;error = ex.Message;}if(onResultadoIniciarCarrera!=null)onResultadoIniciarCarrera(estado, error);});
         socket.On ("posiciones", (data) => { JSONObject jo = getArgumentos(data.MessageText);Jugador jugador = new Jugador(jo);if (onPosiciones != null)onPosiciones(jugador); });
 		socket.On ("carrera_terminada", (data)=>{ JSONObject jo = getArgumentos(data.MessageText);Jugador ganador = new Jugador(jo);if(onCarreraTerminada!=null)onCarreraTerminada(ganador);});
-		socket.On ("jugador_desconectado", (data)=>{JSONObject jo = getArgumentos(data.MessageText);string idJugador = jo[0].ToString();if(onJugadorDesconectado!=null)onJugadorDesconectado(idJugador);});
+		socket.On ("jugador_desconectado", (data)=>{JSONObject jo = getArgumentos(data.MessageText);Jugador jugador = new Jugador(jo);if(onJugadorDesconectado!=null)onJugadorDesconectado(jugador);});
 		socket.On ("sala_cerrada", (data)=>{JSONObject jo = getArgumentos(data.MessageText)[0];Sala sala = new Sala(jo);if(onSalaCerrada!=null)onSalaCerrada(sala);});
 	}
 
