@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class Sala{
 	public string	nombre;
-	public string[] jugadores;
+	public Jugador[] jugadores;
 	public string 	clave;
-	public string	distancia;
+	public int		distancia;
 	public int		estado;
 
 	public Sala(){}
@@ -20,15 +20,14 @@ public class Sala{
 				clave = null;
 		}
 		if (jo.GetField ("distancia") != null)
-			distancia = jo.GetField ("distancia").ToString ().Replace("\"","");
+			distancia = int.Parse(jo.GetField ("distancia").ToString ().Replace("\"",""));
 		if(jo.GetField ("estado")!=null)
 			estado 		= int.Parse(jo.GetField ("estado").ToString ().Replace("\"",""));
 		if (jo.GetField ("jugadores") != null) {
-			jo = jo.GetField ("jugadores");
-			List<JSONObject> lista = jo.list;
-			jugadores = new string[lista.Count];
+			List<JSONObject> lista = jo.GetField ("jugadores").list;
+			jugadores = new Jugador[lista.Count];
 			for(int i=0;i<lista.Count;i++){
-				jugadores[i] = lista[i].ToString().Replace("\"","");
+				jugadores[i] = new Jugador(lista[i]);
 			}
 		}
 	}

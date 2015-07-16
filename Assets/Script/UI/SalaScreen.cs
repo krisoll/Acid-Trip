@@ -29,7 +29,7 @@ public class SalaScreen : MonoBehaviour {
         for (int i = 0; i < Manager.gManager.sala.jugadores.Length; i++)
         {
             objetosJugador[i].SetActive(true);
-            objetosJugador[i].GetComponentInChildren<Text>().text = Manager.gManager.sala.jugadores[i];
+            objetosJugador[i].GetComponentInChildren<Text>().text = Manager.gManager.sala.jugadores[i].nombre;
         }
         numJugadores = Manager.gManager.sala.jugadores.Length;
     }

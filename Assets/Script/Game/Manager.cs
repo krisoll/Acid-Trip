@@ -9,12 +9,11 @@ public class Manager : MonoBehaviour {
     [HideInInspector]
     public City city;
     public Sala sala;
-    public string idJugador;
-    public int posicion;
     public Cliente cli;
+	public Jugador jugador = new Jugador();
     public List<Sala> salas = new List<Sala>();
     public List<RivalLemon> rivales = new List<RivalLemon>();
-    public string ganador;
+    public Jugador ganador;
     public bool finalizo;
     public bool hayNuevasSalas = false;
     public static Manager gManager;
@@ -23,6 +22,7 @@ public class Manager : MonoBehaviour {
 	// Use this for initialization
     void Awake()
     {
+		this.jugador.nombre = "Nombre del jugador";
         gManager = this;
         cli = new Cliente();
         cli.onConectado += () =>
@@ -55,11 +55,13 @@ public class Manager : MonoBehaviour {
             carreraIniciada = true;
         };
 
-        cli.onPosiciones += (idJugador, posicion) =>
-        {
-            this.idJugador = idJugador;
-            this.posicion = posicion;
-                Debug.Log("JUGADOR " + idJugador + " >> " + posicion);
+        cli.onPosiciones += (jugador) =>
+		{
+			Debug.Log("idJugador = "+jugador.id);
+			Debug.Log("posicion = "+jugador.posicion);
+            //this.idJugador = idJugador;
+            //this.posicion = posicion;
+              //  Debug.Log("JUGADOR " + idJugador + " >> " + posicion);
         };
 
         cli.onJugadorDesconectado += (idJugador) =>
@@ -67,11 +69,11 @@ public class Manager : MonoBehaviour {
             Debug.Log("JUGADOR DESCONECTADO " + idJugador);
         };
 
-        cli.onCarreraTerminada += (idJugadorGanador) =>
+        cli.onCarreraTerminada += (ganador) =>
         {
-            ganador = idJugadorGanador;
+			ganador = ganador;
             finalizo = true;
-            Debug.Log("JUGADOR GANADOR " + idJugadorGanador);
+			Debug.Log("JUGADOR GANADOR " + ganador.nombre +" ( "+ganador.id+")");
         };
 
         cli.onSalaCerrada += (sala) =>
@@ -79,7 +81,7 @@ public class Manager : MonoBehaviour {
             Debug.LogError("Sala Cerrada: " + sala.nombre);
         };
 
-        cli.conectar();
+		cli.conectar(this.jugador);
     }
     void Start () {
         DontDestroyOnLoad(this.gameObject);
@@ -110,7 +112,7 @@ public class Manager : MonoBehaviour {
     }
     public void IniciarConexion()
     {
-        if (cli != null) cli.conectar();
+		if (cli != null) cli.conectar(this.jugador);
     }
     public void CerrarConexion()
     {

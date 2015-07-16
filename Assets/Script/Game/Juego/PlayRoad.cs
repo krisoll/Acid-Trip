@@ -17,10 +17,10 @@ public class PlayRoad : MonoBehaviour {
 	void Start () {
         for (int i = 0; i < Manager.gManager.sala.jugadores.Length; i++)
         {
-            if (Manager.gManager.sala.jugadores[i] != Manager.gManager.cli.getIdCliente())
+            if (Manager.gManager.sala.jugadores[i].id != Manager.gManager.cli.getIdCliente())
             {
                 GameObject g = (GameObject)Instantiate(objetoJugador, contenedorPlayers.transform.position, Quaternion.identity);
-                g.GetComponent<RivalLemon>().setName(Manager.gManager.sala.jugadores[i]);
+				g.GetComponent<RivalLemon>().setName(Manager.gManager.sala.jugadores[i].nombre);
                 Manager.gManager.rivales.Add(g.GetComponent<RivalLemon>());
                 g.transform.SetParent(contenedorPlayers.transform);
             }         
