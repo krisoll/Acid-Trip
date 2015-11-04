@@ -42,7 +42,7 @@ public class PlayRoad : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Manager.gManager.finalizo) { Application.LoadLevel(4); Manager.gManager.finalizo = false; }
-        if (distanciaRecorrida - diferenciaDistancia >= 1)
+        if (distanciaRecorrida - diferenciaDistancia >= 0.3f)
         {
             diferenciaDistancia = distanciaRecorrida;
             Manager.gManager.cli.correr();
