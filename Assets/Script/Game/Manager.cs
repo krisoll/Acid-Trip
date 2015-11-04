@@ -22,66 +22,7 @@ public class Manager : MonoBehaviour {
 	// Use this for initialization
     void Awake()
     {
-        this.jugador.nombre = "Sin Nombre";
-        gManager = this;
-        cli = new Cliente();
-        cli.onConectado += () =>
-        {
-            Debug.Log("Conectado :D");
-        };
-
-        cli.onError += (error) =>
-        {
-            Debug.LogError(error);
-        };
-
-        cli.onSalas += (salas) =>
-        {
-            this.salas = salas;
-            hayNuevasSalas = true;
-            Debug.Log("Cantidad de salas = " + salas.Count);
-        };
-
-        cli.onCrearSala += (estado, error) =>
-        {
-            if (estado)
-                Debug.Log("Sala creada");
-            else
-                Debug.LogError("Error al crear sala: " + error);
-        };
-        cli.onIniciarCarrera += (sala) =>
-        {
-            Debug.Log("Inicio la carrera en la sala : " + sala.nombre);
-            carreraIniciada = true;
-        };
-
-        cli.onPosiciones += (jugador) =>
-		{
-			Debug.Log("idJugador = "+jugador.id);
-			Debug.Log("posicion = "+jugador.posicion);
-            //this.idJugador = idJugador;
-            //this.posicion = posicion;
-              //  Debug.Log("JUGADOR " + idJugador + " >> " + posicion);
-        };
-
-        cli.onJugadorDesconectado += (jugador) =>
-        {
-			Debug.Log("JUGADOR DESCONECTADO " + jugador.id);
-        };
-
-        cli.onCarreraTerminada += (ganador) =>
-        {
-			this.ganador = ganador;
-            finalizo = true;
-			Debug.Log("JUGADOR GANADOR " + ganador.nombre +" ( "+ganador.id+")");
-        };
-
-        cli.onSalaCerrada += (sala) =>
-        {
-            Debug.LogError("Sala Cerrada: " + sala.nombre);
-        };
-
-		cli.conectar(this.jugador);
+        Connect();
     }
     void Start () {
         DontDestroyOnLoad(this.gameObject);
@@ -121,5 +62,67 @@ public class Manager : MonoBehaviour {
     public void setNombre(string nombre)
     {
         this.jugador.nombre = nombre;
+    }
+    public void Connect()
+    {
+        gManager = this;
+        cli = new Cliente();
+        cli.onConectado += () =>
+        {
+            Debug.Log("Conectado :D");
+        };
+
+        cli.onError += (error) =>
+        {
+            Debug.LogError(error);
+        };
+
+        cli.onSalas += (salas) =>
+        {
+            this.salas = salas;
+            hayNuevasSalas = true;
+            Debug.Log("Cantidad de salas = " + salas.Count);
+        };
+
+        cli.onCrearSala += (estado, error) =>
+        {
+            if (estado)
+                Debug.Log("Sala creada");
+            else
+                Debug.LogError("Error al crear sala: " + error);
+        };
+        cli.onIniciarCarrera += (sala) =>
+        {
+            Debug.Log("Inicio la carrera en la sala : " + sala.nombre);
+            carreraIniciada = true;
+        };
+
+        cli.onPosiciones += (jugador) =>
+        {
+            Debug.Log("idJugador = " + jugador.id);
+            Debug.Log("posicion = " + jugador.posicion);
+            //this.idJugador = idJugador;
+            //this.posicion = posicion;
+            //  Debug.Log("JUGADOR " + idJugador + " >> " + posicion);
+        };
+
+        cli.onJugadorDesconectado += (jugador) =>
+        {
+            Debug.Log("JUGADOR DESCONECTADO " + jugador.id);
+        };
+
+        cli.onCarreraTerminada += (ganador) =>
+        {
+            this.ganador = ganador;
+            finalizo = true;
+            Debug.Log("JUGADOR GANADOR " + ganador.nombre + " ( " + ganador.id + ")");
+        };
+
+        cli.onSalaCerrada += (sala) =>
+        {
+            Debug.LogError("Sala Cerrada: " + sala.nombre);
+        };
+
+        cli.conectar(this.jugador);
     }
 }

@@ -12,9 +12,10 @@ public class CreateServerButton : MonoBehaviour {
         int random = Random.Range(0, 100);
         sala.nombre = name+random;
         sala.distancia = distancia;
+        Manager.gManager.setNombre(field.text);
+        Manager.gManager.Connect();
         Manager.gManager.admin = true;
         Manager.gManager.sala = sala;
-        Manager.gManager.setNombre(field.text);
         Manager.gManager.cli.crearSala(sala);
         Manager.gManager.cli.unirse(sala);
         Manager.gManager.LoadLevel(2);
