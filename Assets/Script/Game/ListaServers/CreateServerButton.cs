@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class CreateServerButton : MonoBehaviour {
     public int distancia = 1000;
     public string name = "Server";
+    public InputField field;
     private Sala sala;
     public void UnirseSala()
     {
@@ -13,6 +14,7 @@ public class CreateServerButton : MonoBehaviour {
         sala.distancia = distancia;
         Manager.gManager.admin = true;
         Manager.gManager.sala = sala;
+        Manager.gManager.setNombre(field.text);
         Manager.gManager.cli.crearSala(sala);
         Manager.gManager.cli.unirse(sala);
         Manager.gManager.LoadLevel(2);

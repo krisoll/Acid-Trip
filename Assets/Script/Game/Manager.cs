@@ -22,7 +22,7 @@ public class Manager : MonoBehaviour {
 	// Use this for initialization
     void Awake()
     {
-		this.jugador.nombre = "Nombre del jugador";
+        this.jugador.nombre = "Sin Nombre";
         gManager = this;
         cli = new Cliente();
         cli.onConectado += () =>
@@ -117,5 +117,9 @@ public class Manager : MonoBehaviour {
     public void CerrarConexion()
     {
         if (cli != null) cli.cerrar();
+    }
+    public void setNombre(string nombre)
+    {
+        this.jugador.nombre = nombre;
     }
 }
