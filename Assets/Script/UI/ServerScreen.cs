@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ServerScreen : MonoBehaviour {
     public GameObject Panel;
     public GameObject salaPrefab;
+    public InputField field;
     void Start()
     {
 
@@ -27,6 +28,7 @@ public class ServerScreen : MonoBehaviour {
         {
             GameObject g = (GameObject)Instantiate(salaPrefab, Panel.transform.position, Quaternion.identity);
             g.GetComponent<ServerButton>().sala = sala;
+            g.GetComponent<ServerButton>().server = this;
             g.transform.SetParent(Panel.transform);
             g.transform.localScale = salaPrefab.transform.localScale;
             g.transform.localPosition = new Vector3(0, ySize, 0);

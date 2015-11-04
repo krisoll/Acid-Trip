@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+/*
 [System.Serializable]
 [CustomEditor(typeof(ServerScreen))]
 public class ServerEditor : Editor {
@@ -17,3 +18,4 @@ public class ServerEditor : Editor {
         EditorGUILayout.EndHorizontal();
     }
 }
+*/

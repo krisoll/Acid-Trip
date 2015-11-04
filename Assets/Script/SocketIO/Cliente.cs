@@ -48,6 +48,12 @@ public class Cliente {
 		socket.On ("sala_cerrada", (data)=>{JSONObject jo = getArgumentos(data.MessageText)[0];Sala sala = new Sala(jo);if(onSalaCerrada!=null)onSalaCerrada(sala);});
 	}
 
+	public void setNombre(string nombre){
+		if (socket != null) {
+			socket.Emit ("nombreJugador", nombre);
+		}
+	}
+
 	public string getIdCliente(){
 		return socket.HandShake.SID;
 	}

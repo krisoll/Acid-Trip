@@ -64,6 +64,7 @@ public class Manager : MonoBehaviour {
     public void setNombre(string nombre)
     {
         this.jugador.nombre = nombre;
+        cli.setNombre(nombre);
     }
     public void Connect()
     {
