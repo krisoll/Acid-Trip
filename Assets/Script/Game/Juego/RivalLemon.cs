@@ -21,7 +21,7 @@ public class RivalLemon : MonoBehaviour {
             jugador.posicion = Manager.gManager.posicion * 220;
 			nextPosition = new Vector3(jugador.posicion, transform.position.y,transform.position.z);
         }
-        transform.localPosition = Vector3.Lerp(transform.localPosition, nextPosition,0.005f);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, nextPosition,0.007f);
 	}
 
 	public void setJugador(Jugador jugador){
