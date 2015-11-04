@@ -36,7 +36,7 @@ public class PlayRoad : MonoBehaviour {
         Manager.gManager.lemon.currentVelocity = diferencia;
         Manager.gManager.city.velocidad = diferencia*0.1f;
         distanciaRecorrida += diferencia*0.3f;
-        contenedorPlayers.transform.position = new Vector2(contenedorPlayers.transform.position.x - diferencia, contenedorPlayers.transform.position.y);
+        contenedorPlayers.transform.position = new Vector2(contenedorPlayers.transform.position.x - (diferencia*0.2f), contenedorPlayers.transform.position.y);
         Manager.gManager.lemon.transform.position = posContenedorInicial;
     }
 	// Update is called once per frame

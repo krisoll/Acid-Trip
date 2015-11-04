@@ -16,10 +16,10 @@ public class RivalLemon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (jugador != null && jugador.id == Manager.gManager.jugador.id)
+		if (jugador != null && jugador.id == Manager.gManager.idJugador)
         {
-			jugador.posicion = Manager.gManager.jugador.posicion*100;
-			nextPosition = new Vector3(jugador.posicion, 0, 0);
+            jugador.posicion = Manager.gManager.posicion * 220;
+			nextPosition = new Vector3(jugador.posicion, transform.position.y,transform.position.z);
         }
         transform.localPosition = Vector3.Lerp(transform.localPosition, nextPosition,0.005f);
 	}

@@ -21,6 +21,8 @@ public class Manager : MonoBehaviour {
     public bool carreraIniciada = false;
     public bool estado;
     public string error;
+    public string idJugador;
+    public int posicion;
 	// Use this for initialization
     void Awake()
     {
@@ -64,7 +66,7 @@ public class Manager : MonoBehaviour {
     public void setNombre(string nombre)
     {
         this.jugador.nombre = nombre;
-        cli.setNombre(nombre);
+        cli.setNombre(nombre); 
     }
     public void Connect()
     {
@@ -104,8 +106,8 @@ public class Manager : MonoBehaviour {
         {
             Debug.Log("idJugador = " + jugador.id);
             Debug.Log("posicion = " + jugador.posicion);
-            //this.idJugador = idJugador;
-            //this.posicion = posicion;
+            this.idJugador = jugador.id;
+            this.posicion = jugador.posicion;
             //  Debug.Log("JUGADOR " + idJugador + " >> " + posicion);
         };
 
