@@ -11,7 +11,7 @@ public class Lemon : MonoBehaviour {
         anim = GetComponent<Animator>();
         Manager.gManager.lemon = this;
         name = GetComponentInChildren<TextMesh>();
-        setName(Manager.gManager.cli.getIdCliente());
+        setName(Manager.gManager.jugador.nombre);
 	}
 	
 	// Update is called once per frame

@@ -10,7 +10,7 @@ public class Manager : MonoBehaviour {
     public City city;
     public Sala sala;
     public Cliente cli;
-	public Jugador jugador = new Jugador();
+    public Jugador jugador = new Jugador();
     public List<Sala> salas = new List<Sala>();
     public List<RivalLemon> rivales = new List<RivalLemon>();
     public Jugador ganador;
@@ -19,6 +19,8 @@ public class Manager : MonoBehaviour {
     public static Manager gManager;
     public bool admin = false;
     public bool carreraIniciada = false;
+    public bool estado;
+    public string error;
 	// Use this for initialization
     void Awake()
     {
@@ -122,7 +124,10 @@ public class Manager : MonoBehaviour {
         {
             Debug.LogError("Sala Cerrada: " + sala.nombre);
         };
-
+        cli.onUnirse += (estado, error) => {
+            this.estado = estado;
+            this.error = error;
+            };
         cli.conectar(this.jugador);
     }
 }
