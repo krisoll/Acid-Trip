@@ -5,6 +5,7 @@ public class Lemon : MonoBehaviour {
     [HideInInspector]
     public Animator anim;
     public TextMesh name;
+    public Slider slide;
     public float currentVelocity;
 	// Use this for initialization
 	void Start () {

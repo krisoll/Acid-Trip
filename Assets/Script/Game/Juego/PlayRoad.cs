@@ -42,10 +42,11 @@ public class PlayRoad : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Manager.gManager.finalizo) { Application.LoadLevel(4); Manager.gManager.finalizo = false; }
-        if (distanciaRecorrida - diferenciaDistancia >= 0.3f)
+        if (distanciaRecorrida - diferenciaDistancia >= 0.315f)
         {
             diferenciaDistancia = distanciaRecorrida;
             Manager.gManager.cli.correr();
+            Manager.gManager.lemon.slide.value += 1;
         }
         //img.uvRect = new Rect(0,img.uvRect.y+0.1f,1,1);
         if (Input.GetMouseButtonDown(0))

@@ -133,4 +133,8 @@ public class Manager : MonoBehaviour {
             };
         cli.conectar(this.jugador);
     }
+    void OnApplicationQuit()
+    {
+        cli.cerrar();
+    }
 }
