@@ -6,6 +6,7 @@ public class PlayRoad : MonoBehaviour {
     public float breakV = 0;
     public GameObject objetoJugador;
     public GameObject contenedorPlayers;
+    public GameObject contenedorSliders;
     private float posYInicial, posYFinal;
     private float diferencia;
     private bool detenido = true;

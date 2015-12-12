@@ -6,6 +6,7 @@ public class ServerScreen : MonoBehaviour {
     public GameObject Panel;
     public GameObject salaPrefab;
     public InputField field;
+    public PortraitSelect select;
     void Start()
     {
 

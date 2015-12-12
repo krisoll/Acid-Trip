@@ -28,8 +28,11 @@ public class SalaScreen : MonoBehaviour {
     {
         for (int i = 0; i < Manager.gManager.sala.jugadores.Length; i++)
         {
+            string split = Manager.gManager.sala.jugadores[i].nombre.Substring(0, 2);
+            string rName = Manager.gManager.sala.jugadores[i].nombre.Substring(2);
             objetosJugador[i].SetActive(true);
-            objetosJugador[i].GetComponentInChildren<Text>().text = Manager.gManager.sala.jugadores[i].nombre;
+            objetosJugador[i].GetComponent<Image>().sprite = Manager.gManager.playerR.getReference(split);
+            objetosJugador[i].GetComponentInChildren<Text>().text = rName;
         }
         numJugadores = Manager.gManager.sala.jugadores.Length;
     }

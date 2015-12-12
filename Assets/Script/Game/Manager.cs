@@ -11,6 +11,7 @@ public class Manager : MonoBehaviour {
     public Sala sala;
     public Cliente cli;
     public Jugador jugador = new Jugador();
+    public string selectedCharacter;
     public List<Sala> salas = new List<Sala>();
     public List<RivalLemon> rivales = new List<RivalLemon>();
     public Jugador ganador;
@@ -23,10 +24,12 @@ public class Manager : MonoBehaviour {
     public string error;
     public string idJugador;
     public int posicion;
+    public PlayerReference playerR;
 	// Use this for initialization
     void Awake()
     {
         Connect();
+        playerR = (PlayerReference)Resources.Load("Prefabs/ScriptableObjects/PlayerReference", typeof(PlayerReference));
     }
     void Start () {
         DontDestroyOnLoad(this.gameObject);

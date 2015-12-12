@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class CreateServerButton : MonoBehaviour {
     public int distancia = 1000;
     public string name = "Server";
-    public InputField field;
+    public ServerScreen server;
     private Sala sala;
     public void UnirseSala()
     {
@@ -13,7 +13,7 @@ public class CreateServerButton : MonoBehaviour {
         sala.nombre = name+random;
         sala.distancia = 500;
         sala.distancia = distancia;
-        Manager.gManager.setNombre(field.text);
+        Manager.gManager.setNombre(server.select.selectedSkin + server.field.text);
         Manager.gManager.Connect();
         Manager.gManager.admin = true;
         Manager.gManager.sala = sala;

@@ -6,7 +6,7 @@ public class ServerButton : MonoBehaviour {
     public ServerScreen server;
     public void UnirseSala()
     {
-        Manager.gManager.setNombre(server.field.text);
+        Manager.gManager.setNombre(server.select.selectedSkin+server.field.text);
         Manager.gManager.sala = sala;
         Manager.gManager.cli.unirse(sala);
         Manager.gManager.LoadLevel(2);

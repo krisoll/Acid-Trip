@@ -1,9 +1,15 @@
 fileFormatVersion: 2
 guid: a1a07ac1eafe00d48abe4015e708b1a2
-timeCreated: 1449528569
+timeCreated: 1449942577
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: lemon 59x63.fw (1)_0
+    21300002: lemon 59x63.fw (1)_1
+    21300004: lemon 59x63.fw (1)_2
+    21300006: lemon 59x63.fw (1)_3
+    21300008: lemon 59x63.fw (1)_4
+    21300010: lemon 59x63.fw (1)_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -29,15 +35,15 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
-    aniso: -1
+    filterMode: 0
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +54,67 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: lemon 59x63.fw (1)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 59
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: lemon 59x63.fw (1)_1
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 1
+        width: 59
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: lemon 59x63.fw (1)_2
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 1
+        width: 59
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: lemon 59x63.fw (1)_3
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 1
+        width: 59
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: lemon 59x63.fw (1)_4
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 1
+        width: 59
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: lemon 59x63.fw (1)_5
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 1
+        width: 59
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 
