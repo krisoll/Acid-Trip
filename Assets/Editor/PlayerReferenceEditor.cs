@@ -38,6 +38,7 @@ public class PlayerReferenceEditor : Editor
             EditorGUILayout.Space();
             EditorGUILayout.EndVertical();
         }
+        if (GUI.changed) { EditorUtility.SetDirty(target); }
     }
     void addItem()
     {

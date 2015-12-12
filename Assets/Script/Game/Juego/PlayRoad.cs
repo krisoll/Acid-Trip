@@ -4,9 +4,10 @@ using UnityEngine.UI;
 public class PlayRoad : MonoBehaviour {
 
     public float breakV = 0;
-    public GameObject objetoJugador;
     public GameObject contenedorPlayers;
     public GameObject contenedorSliders;
+    public GameObject sliderPlayer;
+    public GameObject sliderRival;
     private float posYInicial, posYFinal;
     private float diferencia;
     private bool detenido = true;
@@ -18,13 +19,32 @@ public class PlayRoad : MonoBehaviour {
 	void Start () {
         for (int i = 0; i < Manager.gManager.sala.jugadores.Length; i++)
         {
+            GameObject g = null;
+            GameObject s = null;
+            GameObject objJugador = Manager.gManager.playerR.getPrefab(Manager.gManager.sala.jugadores[i].nombre.Substring(0,2));
+            g = (GameObject)Instantiate(objJugador, contenedorPlayers.transform.position, Quaternion.identity);
             if (Manager.gManager.sala.jugadores[i].id != Manager.gManager.cli.getIdCliente())
             {
-                GameObject g = (GameObject)Instantiate(objetoJugador, contenedorPlayers.transform.position, Quaternion.identity);
-				g.GetComponent<RivalLemon>().setJugador(Manager.gManager.sala.jugadores[i]);
-                Manager.gManager.rivales.Add(g.GetComponent<RivalLemon>());
-                g.transform.SetParent(contenedorPlayers.transform);
-            }         
+                s = (GameObject)Instantiate(sliderRival, contenedorPlayers.transform.position, Quaternion.identity);
+                RivalLemon r = g.AddComponent<RivalLemon>();
+				r.setJugador(Manager.gManager.sala.jugadores[i]);
+                r.name = GetComponentInChildren<TextMesh>();
+                r.name.text = Manager.gManager.sala.jugadores[i].nombre.Substring(2);
+                r.slider = s.GetComponent<Slider>();
+                r.slider.handleRect.GetComponent<Image>().sprite = Manager.gManager.playerR.getSlide(Manager.gManager.sala.jugadores[i].nombre.Substring(0,2));
+                Manager.gManager.rivales.Add(r);
+            }
+            else
+            {
+                s = (GameObject)Instantiate(sliderPlayer, contenedorPlayers.transform.position, Quaternion.identity);
+                Lemon j = g.AddComponent<Lemon>();
+                Manager.gManager.lemon = j;
+                j.name = GetComponentInChildren<TextMesh>();
+                j.slide = s.GetComponent<Slider>();
+                j.slide.handleRect.GetComponent<Image>().sprite = Manager.gManager.playerR.getSlide(Manager.gManager.sala.jugadores[i].nombre.Substring(0,2));
+            }
+            g.transform.SetParent(contenedorPlayers.transform);
+            s.transform.SetParent(contenedorSliders.transform);
         }
         posContenedorInicial = contenedorPlayers.transform.position;
             img = GetComponent<RawImage>();

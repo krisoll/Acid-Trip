@@ -5,13 +5,13 @@ public class RivalLemon : MonoBehaviour {
     [HideInInspector]
     public Animator anim;
     public TextMesh name;
+    public Slider slider;
     private Vector3 nextPosition;
 	private Jugador jugador;
 
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
-        name = GetComponentInChildren<TextMesh>();
 	}
 	
 	// Update is called once per frame
@@ -20,6 +20,7 @@ public class RivalLemon : MonoBehaviour {
         {
             jugador.posicion = Manager.gManager.posicion * 70;
 			nextPosition = new Vector3(jugador.posicion, transform.position.y,transform.position.z);
+            slider.value = jugador.posicion;
         }
         transform.localPosition = Vector3.Lerp(transform.localPosition, nextPosition,0.007f);
 	}
