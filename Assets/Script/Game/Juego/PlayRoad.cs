@@ -28,8 +28,6 @@ public class PlayRoad : MonoBehaviour {
                 s = (GameObject)Instantiate(sliderRival, contenedorPlayers.transform.position, Quaternion.identity);
                 RivalLemon r = g.AddComponent<RivalLemon>();
 				r.setJugador(Manager.gManager.sala.jugadores[i]);
-                r.name = GetComponentInChildren<TextMesh>();
-                r.name.text = Manager.gManager.sala.jugadores[i].nombre.Substring(2);
                 r.slider = s.GetComponent<Slider>();
                 r.slider.handleRect.GetComponent<Image>().sprite = Manager.gManager.playerR.getSlide(Manager.gManager.sala.jugadores[i].nombre.Substring(0,2));
                 Manager.gManager.rivales.Add(r);
@@ -45,6 +43,8 @@ public class PlayRoad : MonoBehaviour {
             }
             g.transform.SetParent(contenedorPlayers.transform);
             s.transform.SetParent(contenedorSliders.transform);
+            s.transform.localScale = new Vector3(1, 1, 1);
+            s.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
         }
         posContenedorInicial = contenedorPlayers.transform.position;
             img = GetComponent<RawImage>();
@@ -57,7 +57,7 @@ public class PlayRoad : MonoBehaviour {
         Manager.gManager.lemon.currentVelocity = diferencia;
         Manager.gManager.city.velocidad = diferencia*0.1f;
         distanciaRecorrida += diferencia*0.3f;
-        contenedorPlayers.transform.position = new Vector2(contenedorPlayers.transform.position.x - (diferencia*0.2f), contenedorPlayers.transform.position.y);
+        contenedorPlayers.transform.position = new Vector3(contenedorPlayers.transform.position.x - (diferencia*0.2f), contenedorPlayers.transform.position.y,contenedorPlayers.transform.position.z);
         Manager.gManager.lemon.transform.position = posContenedorInicial;
     }
 	// Update is called once per frame

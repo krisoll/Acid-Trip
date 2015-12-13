@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class RivalLemon : MonoBehaviour {
     [HideInInspector]
     public Animator anim;
-    public TextMesh name;
+    public TextMesh nombre;
     public Slider slider;
     private Vector3 nextPosition;
 	private Jugador jugador;
@@ -12,7 +12,9 @@ public class RivalLemon : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
-	}
+        nombre = GetComponentInChildren<TextMesh>();
+        nombre.text = jugador.nombre.Substring(2);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -20,14 +22,13 @@ public class RivalLemon : MonoBehaviour {
         {
             jugador.posicion = Manager.gManager.posicion * 70;
 			nextPosition = new Vector3(jugador.posicion, transform.position.y,transform.position.z);
-            slider.value = jugador.posicion;
+            slider.value = Manager.gManager.posicion;
         }
-        transform.localPosition = Vector3.Lerp(transform.localPosition, nextPosition,0.007f);
-	}
+        transform.localPosition = Vector3.Lerp(transform.localPosition, nextPosition,0.02f);
+    }
 
 	public void setJugador(Jugador jugador){
 		this.jugador = jugador;
-		name.text = jugador.nombre;
 	}
 
 	public Jugador getJugador(){
